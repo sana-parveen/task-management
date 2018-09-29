@@ -1,0 +1,24 @@
+<div class="form-group">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="create-tab" data-toggle="tab" href="#create-task" role="tab" aria-controls="create-task"
+                aria-selected="true" title="{{'Create Task'}}">
+                {{'Create Task'}}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="list-tab" data-toggle="tab" href="#list-task" role="tab" aria-controls="list-task"
+                aria-selected="true" title="{{'List of Tasks'}}" (click)="getTaskList()">
+                {{'List of Tasks'}}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="create-task" role="tabpanel" aria-labelledby="create-tab">
+            <object-add></object-add>
+        </div>
+        <div class="tab-pane fade" id="list-task" role="tabpanel" aria-labelledby="list-tab">
+            <object-list [taskList]="taskList"></object-list>
+        </div>
+    </div>
+</div>

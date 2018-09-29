@@ -1,0 +1,23 @@
+<div class="padding-all-3">
+    <div class="form-group row">
+        <label for="name" class="col-sm-3 col-form-label">Name</label>
+        <div class="col-sm-9">
+            <input class="form-control" type="text" id="name" placeholder="Task name" name="username" [(ngModel)]="task.name">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="description" class="col-sm-3 col-form-label">Description</label>
+        <div class="col-sm-9">
+            <textarea class="form-control" rows="5" id="description" placeholder="Task Description" name="description"
+                [(ngModel)]="task.description"></textarea>
+        </div>
+    </div>
+
+    <div class="form-group text-right">
+        <input class="btn btn-warning text-dark" type="button" (click)="sendTask(task)" value="Submit">
+    </div>
+
+    <div class="form-group text-right">
+        <input class="btn btn-secondary text-dark" type="button" (click)="clear()" value="Cancel">
+    </div>
+</div>

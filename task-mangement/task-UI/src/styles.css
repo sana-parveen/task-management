@@ -1,0 +1,46 @@
+/* You can add global styles to this file, and also import other style files */
+
+.container {
+    color: white;
+    margin-top: 15px;
+}
+
+.form-control {
+    width: 50% !important;
+    font-weight: bold
+}
+
+body {
+    background: url(./assets/images/background.jpg);
+    background-size: auto;
+    background-repeat: repeat-y;
+}
+
+.nav-tabs .nav-link {
+    color: #ffffff;
+}
+
+.list-group {
+    color: #ffffff;
+}
+
+.margin-left-1 {
+    margin-left: 1rem !important;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #c2c2c2;
+}
+
+.padding-all-3 {
+    padding-left: 3rem;
+    padding-right: 3rem;
+    padding-top: 3rem;
+}
+
+a.disabled {
+    background-color: #d3d3d3 !important;
+    cursor: not-allowed;
+}
+

@@ -1,0 +1,45 @@
+<div class="padding-all-3">
+    <div class="form-group" *ngIf="!taskList">
+        <h2>There is no list available</h2>
+    </div>
+
+    <div class="form-group">
+        <div class="list-group">
+            <a *ngFor="let task of taskList" [class.disabled]="isDisabled(task.completed)" href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">
+                        <input type="checkbox" [(ngModel)]="check" (ngModelChange)="checkboxChange($event, task)" aria-label="Checkbox for following text input">
+                        {{task.name}}</h5>
+                    <small class="float-right">3 days ago</small>
+                </div>
+                <p class="mb-1 margin-left-1" [(ngModel)]="task.description">{{task.description}}</p>
+            </a>
+        </div>
+    </div>
+
+
+    <!-- In case pagination is needed we can enable this or else normal scroll should work-->
+    <!-- <nav *ngIf="taskList" aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav> -->
+
+
+    <div class="form-group text-right" *ngIf="btnEnable">
+        <input class="btn btn-danger" type="button" (click)="deleteTasks()" value="Delete">
+    </div>
+
+    <div class="form-group text-right" *ngIf="compBtnEnable">
+        <input class="btn btn-warning text-dark" type="button" (click)="isCompleted()" value="Completed">
+    </div>
+
+</div>
