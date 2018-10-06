@@ -42,7 +42,7 @@ public class TaskController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/list")
+	@RequestMapping(value="/gettask")
 	public ModelAndView listOfTasks() {
 		ModelAndView modelAndView = new ModelAndView("list-of-tasks");
 		
