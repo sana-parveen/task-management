@@ -30,7 +30,7 @@ public class TaskController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/add", method=RequestMethod.POST)
+	@RequestMapping(value="/sendtask", method=RequestMethod.POST)
 	public ModelAndView addingTask(@ModelAttribute Task task) {
 		
 		ModelAndView modelAndView = new ModelAndView("home");
