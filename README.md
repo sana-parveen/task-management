@@ -17,6 +17,7 @@ hibernate 4.2.0.Final
 spring 4.0.1.RELEASE
 mysql 5.1.21
 jdk 1.7
+Maven
 ```
 
 The plugins and libraries are specified in the package.json and package-lock.json. To start the project the packages should be installed by running `npm install`.
