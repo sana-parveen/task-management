@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.http.HttpHeaders;
@@ -37,7 +38,7 @@ public class TaskController {
 		
 	}
 	
-	@RequestMapping(value="/gettask" method = RequestMethod.GET)
+	@RequestMapping(value="/gettask", method = RequestMethod.GET)
 	public ResponseEntity<List<Task>> listOfTasks() {
 		
 		List<Task> tasks = taskService.getTasks();
@@ -48,7 +49,7 @@ public class TaskController {
 	}
 	
 	@RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
-	public ResponseEntity<Task> editTaskPage(@PathVariable Integer id) {
+	public ResponseEntity<Task> editTaskPage(@RequestBody Task task, @PathVariable Integer id) {
 		Task task = taskService.getTask(id);
 		return new ResponseEntity<Task>(task, HttpStatus.OK);
 	}
