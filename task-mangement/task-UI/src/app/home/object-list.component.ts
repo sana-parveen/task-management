@@ -13,7 +13,7 @@ export class ObjectListComponent implements OnInit {
     btnEnable: boolean = false;
     compBtnEnable: boolean = false;
     checkedTask: Array<any> = [];
-    private baseUrl: string = "https://ipaddress";
+    private baseUrl: string = "http://localhost:8080/task/";
     @Input() taskList: Task[];
     constructor(private taskService: TaskService) { }
 
