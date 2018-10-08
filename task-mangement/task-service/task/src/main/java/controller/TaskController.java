@@ -5,11 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 
 import dao.Task;
 import service.TaskService;
@@ -23,63 +26,43 @@ public class TaskController {
 	@Autowired
 	private TaskService taskService;
 	
-	@RequestMapping(value="/add", method=RequestMethod.GET)
-	public ModelAndView addTaskPage() {
-		ModelAndView modelAndView = new ModelAndView("add-task-form");
-		modelAndView.addObject("task", new Task());
-		return modelAndView;
-	}
 	
 	@RequestMapping(value="/sendtask", method=RequestMethod.POST)
-	public ModelAndView addingTask(@ModelAttribute Task task) {
+	public ResponseEntity<Void> addingTask(@RequestBody Task task, UriComponentsBuilder ucBuilder) {
 		
-		ModelAndView modelAndView = new ModelAndView("home");
 		taskService.addTask(task);
+		HttpHeaders headers = new HttpHeaders();
+       		headers.setLocation(ucBuilder.path("/sendtask/{id}").buildAndExpand(task.getId()).toUri());
+       		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 		
-		String message = "Task was successfully added.";
-		modelAndView.addObject("message", message);
-		
-		return modelAndView;
 	}
 	
-	@RequestMapping(value="/gettask")
-	public ModelAndView listOfTasks() {
-		ModelAndView modelAndView = new ModelAndView("list-of-tasks");
+	@RequestMapping(value="/gettask" method = RequestMethod.GET)
+	public ResponseEntity<List<Task>> listOfTasks() {
 		
 		List<Task> tasks = taskService.getTasks();
-		modelAndView.addObject("tasks", tasks);
-		
-		return modelAndView;
+		if(tasks.isEmpty()){
+            		return new ResponseEntity<List<Task>>(HttpStatus.NO_CONTENT);
+       		 }
+		return new ResponseEntity<List<Task>>(tasks, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
-	public ModelAndView editTaskPage(@PathVariable Integer id) {
-		ModelAndView modelAndView = new ModelAndView("edit-task-form");
+	public ResponseEntity<Task> editTaskPage(@PathVariable Integer id) {
 		Task task = taskService.getTask(id);
-		modelAndView.addObject("task",task);
-		return modelAndView;
+		return new ResponseEntity<Task>(task, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/iscompleted/{id}", method=RequestMethod.POST)
-	public ModelAndView editingTask(@ModelAttribute Task task, @PathVariable Integer id) {
-		
-		ModelAndView modelAndView = new ModelAndView("home");
-		
-		taskService.updateTask(task);
-		
-		String message = "Task successfully marked completed.";
-		modelAndView.addObject("message", message);
-		
-		return modelAndView;
+	public ResponseEntity<Task> editingTask(@PathVariable Integer id) {	
+		taskService.updateTask(task);		
+		return new ResponseEntity<Task>(HttpStatus.NO_CONTENT);
 	}
 	
 	@RequestMapping(value="/deletetask/{id}", method=RequestMethod.GET)
-	public ModelAndView deleteTask(@PathVariable Integer id) {
-		ModelAndView modelAndView = new ModelAndView("home");
+	public ResponseEntity<Task> deleteTask(@PathVariable Integer id) {
 		taskService.deleteTask(id);
-		String message = "Task was successfully deleted.";
-		modelAndView.addObject("message", message);
-		return modelAndView;
+		return new ResponseEntity<Task>(HttpStatus.NO_CONTENT);
 	}
 
 }
