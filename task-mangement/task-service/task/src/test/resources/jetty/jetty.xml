@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
+
+<Configure id="Server" class="org.eclipse.jetty.server.Server">
+	<New id="myApplicationDs" class="org.eclipse.jetty.plus.jndi.Resource">
+		<Arg></Arg>
+		<Arg>jdbc/Admin_DB</Arg>
+		<Arg>
+			<New class="oracle.jdbc.pool.OracleDataSource">
+				<Set name="DriverType">thin</Set>
+				<Set name="URL">jdbc:oracle:thin:@(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = )(PORT = 1521))(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = )))</Set>
+				<Set name="User">admin</Set>
+				<Set name="Password">tiger</Set>
+				<Set name="connectionCachingEnabled">true</Set>
+				<Set name="connectionCacheProperties">
+					<New class="java.util.Properties">
+						<Call name="setProperty">
+							<Arg>MinLimit</Arg>
+							<Arg>5</Arg>
+						</Call>
+					</New>
+				</Set>
+			</New>
+		</Arg>
+	</New>
+</Configure>
