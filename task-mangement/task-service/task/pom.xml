@@ -5,9 +5,8 @@
   <groupId>todo.task</groupId>
   <artifactId>task</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
-
-  <name>task</name>
+  <packaging>war</packaging>
+  <name>task management Webapp</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -99,6 +98,7 @@
   </dependencies>
 	
 	<build>
+	 <finalName>taskManagement</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -109,7 +109,48 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
+			
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>${jetty.version}</version>
+				<configuration>
+					<jettyXml>${basedir}/src/test/resources/jetty/jetty.xml</jettyXml>
+					<httpConnector>
+						<port>8080</port>
+					</httpConnector>
+					<scanIntervalSeconds>10</scanIntervalSeconds>
+					<webApp>
+						<contextPath>/taskManagement</contextPath>
+					</webApp>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>com.oracle.jdbc</groupId>
+						<artifactId>ojdbc6</artifactId>
+						<version>11.2.0.3.0</version>
+						<systemPath>${basedir}/src/test/lib/ojdbc6.jar</systemPath>
+						<scope>system</scope>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.0.2</version>
+				<executions>
+					<execution>
+						<configuration>
+							<resources>
+								<resource>
+									<directory>${basedir}/target/classes</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
         </plugins>
-        <finalName>task</finalName>
+       
     </build>
 </project>
